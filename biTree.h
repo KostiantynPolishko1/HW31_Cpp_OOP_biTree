@@ -14,6 +14,14 @@ private:
 public:
 	biTree() : head(nullptr), size{} {}
 
+	~biTree() {
+		clearTree(&(*this->head));
+	}
+
+	Item& getHead() const {
+		return *this->head;
+	}
+
 	void addItem(const int& data, Item* headBranch)
 	{
 		if (!this->head)
@@ -28,6 +36,7 @@ public:
 			{
 				if (!&headBranch->getLeftBranch()) {
 					headBranch->setLeftBranch(new Item(data));
+					size++;
 					return;
 				}
 				addItem(data, &headBranch->getLeftBranch());
@@ -36,6 +45,7 @@ public:
 			{
 				if (!&headBranch->getRightBranch()) {
 					headBranch->setRightBranch(new Item(data));
+					size++;
 					return;
 				}
 				addItem(data, &headBranch->getRightBranch());
@@ -43,8 +53,15 @@ public:
 		}
 	}
 
-	Item& getHead() const {
-		return *this->head;
+	void clearTree(Item* headBranch) 
+	{
+		if (!headBranch)
+			return;
+		clearTree(&headBranch->getLeftBranch());
+		clearTree(&headBranch->getRightBranch());
+
+		delete headBranch;
+		return;
 	}
 };
 #endif
