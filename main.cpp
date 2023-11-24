@@ -18,7 +18,10 @@ int main()
 	std::cout << biList << "\n";
 
 	//functioin searchItemByDate
-	Item* item = &biList.searchItemByDate(1);
+	Item* item = biList.searchItemByDate(1);
+	std::cout << (item != nullptr? item->getData() : 0) << "\n";
+
+	//std::cout << *item << "\n";
 
 	return 0;//call destructor -> function clearTree()
 }

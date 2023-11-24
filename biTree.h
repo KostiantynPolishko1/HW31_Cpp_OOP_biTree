@@ -89,7 +89,7 @@ public:
 		}
 	}
 
-	Item& searchItemByDate(const int& valSearch) const
+	Item* searchItemByDate(const int& valSearch) const
 	{
 		Item* item = this->head;
 
@@ -101,7 +101,12 @@ public:
 				item = &item->getRightBranch();
 		}
 
-		return *item;
+		return item != nullptr? new Item(valSearch) : nullptr;
+	}
+
+	friend std::ostream& operator<< (std::ostream& out, Item*& const item)
+	{	
+		return out << (*&item != nullptr ? item->getData() : 0);
 	}
 
 	friend std::ostream& operator<< (std::ostream& out, biTree& const biList)
