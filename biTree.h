@@ -4,12 +4,27 @@
 #define BITREE_H
 
 #include "Item.h"
+#include <iostream>
+#include <string>
 
 class biTree
 {
 private:
 	Item* head;
 	int size;
+
+	std::string& printTree(Item* headBranch, std::string& out)
+	{
+		if (!headBranch)
+			return out;
+
+		printTree(&headBranch->getLeftBranch(), out);
+		out += std::to_string(headBranch->getData()) + "\n";
+
+		printTree(&headBranch->getRightBranch(), out);
+
+		return out;
+	}
 
 public:
 	biTree() : head(nullptr), size{} {}
@@ -62,6 +77,13 @@ public:
 
 		delete headBranch;
 		return;
+	}
+
+	friend std::ostream& operator<< (std::ostream& out, biTree& const biList)
+	{
+		std::string txt = "data\n";
+		out << biList.printTree(&biList.getHead(), txt);
+		return out;
 	}
 };
 #endif

@@ -1,4 +1,3 @@
-#include <iostream>
 #include <ctime>
 #include "biTree.h"
 
@@ -9,11 +8,14 @@ int main()
 	biTree biList;
 	srand(time(NULL));
 
-	//function addItem
+	//function addItem()
 	for (size_t i = 0; i < 5; i++)
 	{
 		biList.addItem((-5 + rand()%11), &biList.getHead());
 	}
 
-	return 0;
+	//ostream operator<<
+	std::cout << biList << "\n";
+
+	return 0;//call destructor -> function clearTree()
 }
