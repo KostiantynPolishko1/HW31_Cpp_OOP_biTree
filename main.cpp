@@ -17,5 +17,8 @@ int main()
 	//ostream operator<<
 	std::cout << biList << "\n";
 
+	//functioin searchItemByDate
+	Item* item = &biList.searchItemByDate(1);
+
 	return 0;//call destructor -> function clearTree()
 }

@@ -26,6 +26,27 @@ private:
 		return out;
 	}
 
+	int datecmp(const int& valSearch, const int& valItem) const
+	{
+		if (valSearch == valItem)
+			return 0;
+		else if (valSearch < valItem)
+			return -1;
+		else if (valSearch > valItem)
+			return 1;
+	}
+
+	void clearTree(Item* headBranch)
+	{
+		if (!headBranch)
+			return;
+		clearTree(&headBranch->getLeftBranch());
+		clearTree(&headBranch->getRightBranch());
+
+		delete headBranch;
+		return;
+	}
+
 public:
 	biTree() : head(nullptr), size{} {}
 
@@ -68,15 +89,19 @@ public:
 		}
 	}
 
-	void clearTree(Item* headBranch) 
+	Item& searchItemByDate(const int& valSearch) const
 	{
-		if (!headBranch)
-			return;
-		clearTree(&headBranch->getLeftBranch());
-		clearTree(&headBranch->getRightBranch());
+		Item* item = this->head;
 
-		delete headBranch;
-		return;
+		while (item != nullptr && datecmp(valSearch, item->getData()) != 0) 
+		{
+			if (datecmp(valSearch, item->getData()) < 0)
+				item = &item->getLeftBranch();
+			else
+				item = &item->getRightBranch();
+		}
+
+		return *item;
 	}
 
 	friend std::ostream& operator<< (std::ostream& out, biTree& const biList)
