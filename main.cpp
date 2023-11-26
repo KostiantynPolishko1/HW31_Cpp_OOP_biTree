@@ -5,6 +5,7 @@ int main()
 {
 	std::cout << "BeTree" << std::endl;
 	int arr[] = {6, 8, 4, 5, 2, 3, 0};	//biTree is balanced
+	// arr[] = {3, 2, 1};		//biTree is not balanced
 
 	int sizeArr = std::size(arr);
 	biTree biList;
@@ -29,6 +30,9 @@ int main()
 	//function for update heigt of items
 	std::cout << "\n";
 	biList.updateHeight(&biList.getHead());
+
+	//function for balance beTree
+	//biList.balanceTree(&biList.getHead());
 
 	return 0;//call destructor -> function clearTree()
 }

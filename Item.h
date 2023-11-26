@@ -30,7 +30,7 @@ public:
 	}
 
 	int getHeight(const Item* item) const {
-		return item == nullptr? -1 : this->height;
+		return item == nullptr? -1 : item->height;
 	}
 
 	Item& getLeftBranch() const {
@@ -40,10 +40,23 @@ public:
 	Item& getRightBranch() const {
 		return *this->rightBranch;
 	}
+
+	Item* getLeftBranchRotate() {
+		return this->leftBranch;
+	}
+
+	Item* getRightBranchRotate() {
+		return this->rightBranch;
+	}
+
 #pragma endregion
 
 #pragma region  setters
-	void setHeight(int height) {
+	void setData(const int& data) {
+		this->data = data;
+	}
+
+	void setHeight(const int& height) {
 		this->height = height;
 	}
 

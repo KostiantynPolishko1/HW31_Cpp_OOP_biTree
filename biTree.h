@@ -52,6 +52,29 @@ private:
 		return (branchLeft->getHeight(branchLeft) > branchRight->getHeight(branchRight) ? branchLeft->getHeight(branchLeft) : branchRight->getHeight(branchRight)) + 1;
 	}
 
+	int getBalance(Item* const& item) const
+	{
+		return item == nullptr ? 0 : item->getHeight(&item->getRightBranch()) - item->getHeight(&item->getLeftBranch());
+	}
+
+	void swapItem(Item* const& itemA, Item* const& itemB) 
+	{
+		int heightA = itemA->getData();
+		itemA->setData(itemB->getData());
+		itemB->setData(heightA);
+		heightA = NULL;
+	}
+
+	void rightRotate(Item* item)
+	{
+		swapItem(item, &item->getLeftBranch());
+
+		*item->getRightBranchRotate() = *item->getLeftBranchRotate();
+
+		*item->getLeftBranchRotate() = *item->getRightBranchRotate()->getLeftBranchRotate();
+
+	}
+
 public:
 	biTree() : head(nullptr), size{} {}
 
@@ -77,6 +100,21 @@ public:
 		headBranch->setHeight(maxHeight(&headBranch->getLeftBranch(), &headBranch->getRightBranch()));
 		std::cout << "\tNode: " << headBranch->getData();
 		std::cout << "\t| height: " << headBranch->getHeight(headBranch) << "\n";
+	}
+
+	void balanceTree(Item* headBranch) 
+	{
+		if (!headBranch)
+			return;
+
+		if (&headBranch->getLeftBranch() == nullptr && &headBranch->getRightBranch() == nullptr)
+			return;
+
+		balanceTree(&headBranch->getLeftBranch());
+		balanceTree(&headBranch->getRightBranch());
+
+		if (getBalance(headBranch) == -2)
+			rightRotate(headBranch);
 	}
 
 	void addItem(const int& data, Item* headBranch)
