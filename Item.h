@@ -9,15 +9,17 @@ class Item
 {
 private:
 	int data;
+	int height;
 	Item* leftBranch;
 	Item* rightBranch;
 
 public:
 
-	Item(const int& data) : data{data}, leftBranch(nullptr), rightBranch(nullptr) {}
+	Item(const int& data) : data{ data }, height{0}, leftBranch(nullptr), rightBranch(nullptr) {}
 
 	~Item() {
 		this->data = NULL;
+		this->height = NULL;
 		this->leftBranch = nullptr;
 		this->rightBranch = nullptr;
 	}
@@ -25,6 +27,10 @@ public:
 #pragma region getters
 	int getData() const {
 		return this->data;
+	}
+
+	int getHeight(const Item* item) const {
+		return item == nullptr? -1 : this->height;
 	}
 
 	Item& getLeftBranch() const {
@@ -37,6 +43,10 @@ public:
 #pragma endregion
 
 #pragma region  setters
+	void setHeight(int height) {
+		this->height = height;
+	}
+
 	void setLeftBranch(Item* const& item) {
 		this->leftBranch = item;
 	}

@@ -36,7 +36,7 @@ private:
 			return 1;
 	}
 
-	void clearTree(Item* headBranch)
+	void clearTree(const Item* headBranch)
 	{
 		if (!headBranch)
 			return;
@@ -45,6 +45,11 @@ private:
 
 		delete headBranch;
 		return;
+	}
+
+	int maxHeight(const Item* branchLeft, const Item* branchRight) const 
+	{
+		return (branchLeft->getHeight(branchLeft) > branchRight->getHeight(branchRight) ? branchLeft->getHeight(branchLeft) : branchRight->getHeight(branchRight)) + 1;
 	}
 
 public:
@@ -56,6 +61,22 @@ public:
 
 	Item& getHead() const {
 		return *this->head;
+	}
+
+	void updateHeight(Item* headBranch) 
+	{
+		if (!headBranch)
+			return;
+
+		if (&headBranch->getLeftBranch() == nullptr && &headBranch->getRightBranch() == nullptr)
+			return;
+
+		updateHeight(&headBranch->getLeftBranch());
+		updateHeight(&headBranch->getRightBranch());
+
+		headBranch->setHeight(maxHeight(&headBranch->getLeftBranch(), &headBranch->getRightBranch()));
+		std::cout << "\tNode: " << headBranch->getData();
+		std::cout << "\t| height: " << headBranch->getHeight(headBranch) << "\n";
 	}
 
 	void addItem(const int& data, Item* headBranch)
